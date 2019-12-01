@@ -211,7 +211,7 @@ class VoxelGeneratorV2:
                  block_factor=8,
                  block_size=3,
                  height_threshold=0.1,
-                 height_high_threshold=2.0):
+                 height_high_threshold=2.0,voxel_config=None):
         assert full_mean is False, "don't use this."
         point_cloud_range = np.array(point_cloud_range, dtype=np.float32)
         # [0, -40, -3, 70.4, 40, 1]
@@ -238,6 +238,7 @@ class VoxelGeneratorV2:
         self._height_threshold = height_threshold
         self._block_size = block_size
         self._height_high_threshold = height_high_threshold
+        self._config=voxel_config
 
     def generate(self, points, max_voxels=None):
         res = points_to_voxel(
@@ -283,3 +284,7 @@ class VoxelGeneratorV2:
     @property
     def grid_size(self):
         return self._grid_size
+    
+    @property
+    def config(self):
+        return self._config
